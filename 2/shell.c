@@ -6,12 +6,17 @@
 #include <unistd.h>
 #include <sys/wait.h>
 int launch_process(char **args);
+
+/***************************************************************
+ *Main for the program. Gets user input and does token creation
+ for the user input and correct parsing of inupt to put into
+ tokens.
+****************************************************************/
 int main(int argc, char **argv){
 	int isExit = 0;
-	// char exit[4] = "exit";
 	char input[51];
 	printf("shell> ");
-	while(!isExit){
+	while(1){
 		fgets(input, 50, stdin);
 		input[strlen(input) -1] = 0;
 		char* checkForSpace = strchr(input, ' ');
@@ -24,22 +29,27 @@ int main(int argc, char **argv){
 		char *token;
 		token = strtok(input, " ");
 		while(token != NULL){
-			// runToken(token);
+            // Iterates through the created tokens from the user input
 			tokens[iterator] = token;
 			iterator ++;
 			token = strtok(NULL, " ");
 		}
-		// printf("%s\n", tokens[1]);
 		launch_process(tokens);
 	}
 	return 0;
 }
-
+/******************************************************************
+ *Launch process does the majority of the work. This is where 
+ we check our exit call, or if the input is invalid. Additionally,
+ we get the information about context switches and the usage
+ time it takes for each process. 
+*******************************************************************/
 int launch_process(char **args){
 	pid_t pid;
 	int status;
 	struct rusage childUsage;
-	// struct rusage *usage;
+    //Checking to see if input is quit, if it is, then program exits. Otherwise
+    //the program continues.
 	if(strcmp(args[0], "quit") == 0){
 		printf("quiting!\n");
 		exit(0);
