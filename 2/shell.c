@@ -1,3 +1,15 @@
+/****************************************************************
+ * Simple Shell
+ * Lab 3
+ * January 23, 2017
+ * Written by Matt Noblet and Ben Commet
+ * This program creates a simple shell capable of spawning off a
+ * child process. Upon completion of the child process the 
+ * program will print out cpu usage time and the number of 
+ * involuntary context switches
+ ***************************************************************/
+
+
 #include <stdio.h> 
 #include <string.h>
 #include <stdlib.h>
