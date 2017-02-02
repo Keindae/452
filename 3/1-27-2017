@@ -1,0 +1,3 @@
+@title - Threads
+@def thread - path of execution, a lightweight process, unit of execution
+@def process - unit of resource ownership
