@@ -15,9 +15,7 @@ int main()
     pid_t pid;
     pid_t parent_pid = getpid();
     pid = fork();
-    signal (SIGUSR2, usr2_handler); 
     signal (SIGINT, sig_handler_parent);
-    signal (SIGUSR1, usr1_handler); 
     //Check to see if fork worked correctly
     if(pid < 0){
         printf("fork failed");
@@ -26,7 +24,11 @@ int main()
     //Parent process
     else if(pid>0){ 
         fprintf(stderr, "parent");
-        pause();
+        signal (SIGUSR1, usr1_handler); 
+        signal (SIGUSR2, usr2_handler); 
+        while(1){
+            sleep(1);
+        }
     }
     //child process
     else if(pid == 0){
@@ -54,7 +56,7 @@ int main()
 
 void sig_handler_parent (int sigNum) 
 { 
-    printf (" received. That's it, I'm shutting you down...parent\n"); 
+    printf (" received. That's it, I'm shutting you down\n"); 
     exit(0); 
 }
 
@@ -65,10 +67,9 @@ void sig_handler_child (int sigNum)
 
 void usr1_handler (int sigNum){
     fprintf(stderr, "received a SIGUSR1 signal\n");
-    signal (SIGUSR1, usr1_handler);
 }
 
 void usr2_handler (int sigNum){
     fprintf(stderr, "received a SIGUSR2 signal\n");
-    signal (SIGUSR2, usr2_handler);
+
 }
