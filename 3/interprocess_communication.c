@@ -1,3 +1,11 @@
+/*******************************************************
+Matt Noblett and Ben Commet
+Lab 3 - Interprocess Communication
+Spawns off a fork of the child, and then the child will
+randomly spawn off signal to the parent. Child waits a certain
+amount of time. 
+*******************************************************/
+
 #include <stdio.h> 
 #include <unistd.h> 
 #include <stdlib.h> 
