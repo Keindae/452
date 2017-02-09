@@ -42,19 +42,26 @@ void exit_handler (int sigNum)
     int totalfiles = found_on_cache + not_on_cache;
     printf("The total number of files requested: %d\n", totalfiles);
     printf("The total number of files found on disk: %d\n", found_on_cache);
-    printf (" received. That's it, I'm shutting you down\n"); 
+    printf ("That's it, I'm shutting you down\n"); 
     exit(0); 
 }
 
 void* rand_sleep(void* arg){
 	char *arguments;
 	arguments= (char*) arg;
-	char localArray[strlen(arguments-1)];
+	fprintf(stderr, "arguments: %s", arguments);
+	char localArray[strlen(arguments)];
+	if(strlen(arguments) -1 == 0){
+		fprintf(stderr, "canada");
+		localArray[0] = '\0';
+	}
+
 	int position = 0;
 	while(*(arguments + position)){
 		localArray[position] = *(arguments + position);
 		position ++;
 	}
+	localArray[position + 1] = '\0';
 	if(rand() % 5){
 		sleep(1);
 		fprintf(stderr, "Found file: %s", &localArray[0]);
