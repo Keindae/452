@@ -16,21 +16,22 @@ Program that simulates a multi-threaded file server
 void exit_handler (int);
 void* rand_sleep (void* arg);
 int found_on_cache, not_on_cache;
+char *totalString;
 int main(){
 	signal (SIGINT, exit_handler);
 	char input[256];
     srand(time(NULL));
     int status;
+	fprintf(stderr, "Input files: ");
 	while(1){
-		fprintf(stderr, "Input a file: ");
 		fgets(input, 256, stdin);
 		pthread_t childThread;
 		status = pthread_create(&childThread, NULL, rand_sleep, &input[0]);
-		if(!status){
+		if(status){
 			fprintf(stderr, "Error: Thread not started");
 		}
 		else{
-			pthread_detatch(childThread);
+			pthread_detach(childThread);
 		}
 	}
 	return 0;
@@ -45,19 +46,25 @@ void exit_handler (int sigNum)
 void* rand_sleep(void* arg){
 	char *arguments;
 	arguments= (char*) arg;
-	printf("%s", arguments);
-
-	//80% of time
+	char localArray[strlen(arguments-1)];
+	int position = 0;
+	while(*arguments){
+		localArray[position] = *arguments;
+		*arguments++;
+		position ++;
+	}
 	if(rand() % 5){
 		sleep(1);
-		fprintf(stderr, "Found file: %s\n", arguments);
+		fprintf(stderr, "Found file: %s", &localArray[0]);
+		memset(&localArray[0]);
 		found_on_cache ++;
 	}
 	//20% of time
 	else{
 		sleep(rand()% 4 + 7 );
-		printf("File not found in disk cache\n");
+		fprintf(stderr, "Not found in disk cache: %s", &localArray[0]);
 		not_on_cache ++;
+		memset(&localArray[0]);
 	}
 	return NULL;
 	
