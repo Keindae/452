@@ -39,6 +39,9 @@ int main(){
 
 void exit_handler (int sigNum) 
 { 
+    int totalfiles = found_on_cache + not_on_cache;
+    printf("The total number of files requested: %d\n", totalfiles);
+    printf("The total number of files found on disk: %d\n", found_on_cache);
     printf (" received. That's it, I'm shutting you down\n"); 
     exit(0); 
 }
@@ -48,15 +51,13 @@ void* rand_sleep(void* arg){
 	arguments= (char*) arg;
 	char localArray[strlen(arguments-1)];
 	int position = 0;
-	while(*arguments){
-		localArray[position] = *arguments;
-		*arguments++;
+	while(*(arguments + position)){
+		localArray[position] = *(arguments + position);
 		position ++;
 	}
 	if(rand() % 5){
 		sleep(1);
 		fprintf(stderr, "Found file: %s", &localArray[0]);
-		memset(&localArray[0]);
 		found_on_cache ++;
 	}
 	//20% of time
@@ -64,7 +65,6 @@ void* rand_sleep(void* arg){
 		sleep(rand()% 4 + 7 );
 		fprintf(stderr, "Not found in disk cache: %s", &localArray[0]);
 		not_on_cache ++;
-		memset(&localArray[0]);
 	}
 	return NULL;
 	
