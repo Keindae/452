@@ -11,8 +11,9 @@ int main ()
 { 
    int shmId; 
    char *shmPtr;
+   key_t key = 1234;
 
-   if ((shmId = shmget (IPC_PRIVATE, FOO, IPC_CREAT|S_IRUSR|S_IWUSR)) < 0) { 
+   if ((shmId = shmget (key, FOO, IPC_CREAT|S_IRUSR|S_IWUSR)) < 0) { 
       perror ("i can't get no..\n"); 
       exit (1); 
    } 
@@ -29,6 +30,7 @@ int main ()
       perror ("can't deallocate\n"); 
       exit(1); 
    }
+
 
    return 0; 
 }
