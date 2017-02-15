@@ -12,7 +12,7 @@ void exit_handler (int sigNum);
 int main(){
 	int shmid;
 	key_t key;
-	char *shm, *s;
+	char *shared_mem, *s;
 
 	key = 4321;
 
@@ -21,17 +21,17 @@ int main(){
 		exit(1);
 	}
 
-	if((shm = shmat(shmid, NULL, 0)) == (char *) - 1){
+	if((shared_mem = shmat(shmid, NULL, 0)) == (char *) - 1){
 		perror("shmat failed");
 		exit(1);
 	}
 
-	for(s = shm; *s != NULL; s++){
+	for(s = shared_mem; *s != NULL; s++){
 		putchar(*s);
 	}
 	putchar('\n');
 
-	*shm = '*';
+	*shared_mem = '*';
 
 	exit(0);
 
