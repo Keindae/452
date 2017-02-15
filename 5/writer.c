@@ -15,7 +15,7 @@ int main(){
 	char input[256];
 	int shmid;
 	key_t key;
-	char *shared_mem, *s
+	char *shared_mem, *s;
 
 	key = 4321;
 
@@ -24,12 +24,12 @@ int main(){
 	        exit(1);
 	 }
 
-	 if ((shm = shmat(shmid, NULL, 0)) == (char *) -1) {
+	 if ((shared_mem = shmat(shmid, NULL, 0)) == (char *) -1) {
         perror("shmat");
         exit(1);
     }
 
-    s = shm;
+    s = shared_mem;
 
 	while(1){
 		fprintf(stderr, "Enter string: ");
@@ -43,7 +43,7 @@ int main(){
 			*s++ = input[i];
 		}
 
-		while (*shm != '*' && *(shm + 1) != 1)
+		while (*shared_mem != '*' && *(shared_mem + 1) != 1)
         	sleep(1);
 		
 	}

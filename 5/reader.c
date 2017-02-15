@@ -21,7 +21,7 @@ int main(){
 		exit(1);
 	}
 
-	if((shm = smat(shmid, null, 0)) == (char *) - 1){
+	if((shm = shmat(shmid, NULL, 0)) == (char *) - 1){
 		perror("shmat failed");
 		exit(1);
 	}
