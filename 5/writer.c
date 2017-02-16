@@ -6,7 +6,10 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-
+//Matt Noblett
+//Ben Commet
+//Lab 5 - Winter 2017 Wolffe
+//Writer takes a user input, and then sends it to a reader for it to display, using shared memory
 #define MEMORY_SIZE 4096
 void exit_handler (int sigNum);
 int shmId, flId;
