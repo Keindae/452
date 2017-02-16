@@ -1,3 +1,5 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -39,15 +41,21 @@ int main(){
 		perror("shmat failed");
 		exit(1);
 	}
-
+	int readerId;
+	if(flag_mem[2] == 0){
+		readerId = 0;
+		flag_mem[2] = 1;
+	}
+	else{ readerId = 1;}
+	printf("%d\n", readerId);
 	while(1){
-		if(flag_mem[0] == 0){
+		if(readerId == 0 && flag_mem[0] == 0){
 			for(s = shared_mem; *s != NULL; s++){
 				putchar(*s);
 			}
 			flag_mem[0] = 1;
 		}
-		if(flag_mem[1] == 0){
+		if(readerId && flag_mem[1] == 0){
 			for(s = shared_mem; *s != NULL; s++){
 				putchar(*s);
 			}

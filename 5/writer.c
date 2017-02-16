@@ -42,6 +42,7 @@ int main(){
      }
 
 
+	flag_meme[2] = 0;
 	while(1){
 		s = shared_meme;
 		fprintf(stderr, "Enter string: ");
