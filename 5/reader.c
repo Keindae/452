@@ -6,6 +6,10 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+//Matt Noblett
+//Ben Commet
+//Lab 5- Winter 2017 Wolffe
+//Reader is supposed to read in what the writer has written to it and display it. 
 
 #define MEMORY_SIZE 4096
 void exit_handler (int sigNum);
