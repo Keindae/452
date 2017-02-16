@@ -1,5 +1,5 @@
-#include <stdio.h> 
-#include <stdlib.h> 
+#include <stdio.h>
+#include <stdlib.h>
 #include <signal.h>
 #include <time.h>
 #include <string.h>
@@ -14,7 +14,7 @@ int main(){
 	key_t key;
 	char *shared_mem, *s;
 
-	key = 4321;
+	key = 4444;
 
 	if((shmid = shmget(key, MEMORY_SIZE, 0666)) < 0){
 		perror("shmget failed");
@@ -33,6 +33,7 @@ int main(){
 
 	*shared_mem = '*';
 
+	shmdt(shared_mem);
 	exit(0);
 
 

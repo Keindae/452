@@ -1,5 +1,5 @@
-#include <stdio.h> 
-#include <stdlib.h> 
+#include <stdio.h>
+#include <stdlib.h>
 #include <signal.h>
 #include <time.h>
 #include <string.h>
@@ -9,29 +9,30 @@
 
 #define MEMORY_SIZE 4096
 void exit_handler (int sigNum);
+int shmId;
+char *shared_mem;
 int main(){
-	//Listen for ^C 
+	//Listen for ^C
 	signal (SIGINT, exit_handler);
 	char input[256];
-	int shmid;
 	key_t key;
-	char *shared_mem, *s;
+	char *s;
 
-	key = 4321;
+	key = 4444;
 
-	if ((shmid = shmget(key, MEMORY_SIZE, IPC_CREAT | 0666)) < 0) {
+	if ((shmId = shmget(key, MEMORY_SIZE, IPC_CREAT | 0666)) < 0) {
 	        perror("shmget");
 	        exit(1);
 	 }
 
-	 if ((shared_mem = shmat(shmid, NULL, 0)) == (char *) -1) {
+	 if ((shared_mem = shmat(shmId, NULL, 0)) == (char *) -1) {
         perror("shmat");
         exit(1);
     }
 
-    s = shared_mem;
 
 	while(1){
+		s = shared_mem;
 		fprintf(stderr, "Enter string: ");
 		//Get input from user
 		fgets(input, 256, stdin);
@@ -45,13 +46,18 @@ int main(){
 
 		while (*shared_mem != '*' && *(shared_mem + 1) != 1)
         	sleep(1);
-		
+
 	}
+
+	shmdt(shared_mem);
+	shmctl(shmId, IPC_RMID, NULL);
 	return 0;
 }
 
-void exit_handler (int sigNum) 
-{ 
-	printf ("That's it, I'm shutting you down\n"); 
-	exit(0); 
+void exit_handler (int sigNum)
+{
+	shmdt(shared_mem);
+	shmctl(shmId, IPC_RMID, NULL);
+	printf ("That's it, I'm shutting you down\n");
+	exit(0);
 }
