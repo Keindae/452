@@ -1,3 +1,8 @@
+//Matt Noblett
+//Ben Commet
+//Lab 5 - Winter 2017 Wolffe
+//Writer takes a user input, and then sends it to a reader for it to display, using shared memory
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
