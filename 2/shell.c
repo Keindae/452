@@ -28,7 +28,7 @@ int main(int argc, char **argv){
 	//Make the array one larger than fgets allows to let us concatonate a space
 	//at the end
 	char input[51];
-	printf("shell> ");
+	printf("mysh$ ");
 	//Accept user input until they quit out
 	while(1){
 		//limit input to the size of the predeclared input array
@@ -80,15 +80,16 @@ int launch_process(char **args){
 			fprintf(stderr, "The command entered is invalid\n");
 		}
 		exit(0);
-	}
+	}/*
 	else{
 		//wait and print the cpu usage statistics 
 		waitpid(-1, &status, 0);
 		getrusage(RUSAGE_CHILDREN, &childUsage);
 		printf("CPU Time Used: %ld.%06ld\n", childUsage.ru_utime.tv_sec, childUsage.ru_utime.tv_usec);
 		printf("Involuntary Context Switches %li\n", childUsage.ru_nivcsw);
-	}
+        }
+        */
 	//print shell> to make it move apparent that this is a prompt
-	printf("shell>");
+	printf("mysh$ ");
 	return 0;
 }

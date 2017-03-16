@@ -11,9 +11,13 @@ int main ()
 { 
    int shmId; 
    char *shmPtr;
+<<<<<<< HEAD
    struct shmid_ds test;
+=======
+   key_t key = 1234;
+>>>>>>> f5723f510a0f7b03aa0cbe836e49c0a766305914
 
-   if ((shmId = shmget (IPC_PRIVATE, FOO, IPC_CREAT|S_IRUSR|S_IWUSR)) < 0) { 
+   if ((shmId = shmget (key, FOO, IPC_CREAT|S_IRUSR|S_IWUSR)) < 0) { 
       perror ("i can't get no..\n"); 
       exit (1); 
    } 
@@ -34,6 +38,7 @@ int main ()
       perror ("can't deallocate\n"); 
       exit(1); 
    }
+
 
    return 0; 
 }
