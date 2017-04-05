@@ -27,5 +27,4 @@ int main(){
     start_counter = li.QuadPart;
     QueryPerformanceCounter(&li);
     printf("%lf\n", double(li.QuadPart - start_counter)/frequency);
-
 }
