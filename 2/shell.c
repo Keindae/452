@@ -80,7 +80,7 @@ int launch_process(char **args){
 			fprintf(stderr, "The command entered is invalid\n");
 		}
 		exit(0);
-	}/*
+	}
 	else{
 		//wait and print the cpu usage statistics 
 		waitpid(-1, &status, 0);
@@ -88,7 +88,6 @@ int launch_process(char **args){
 		printf("CPU Time Used: %ld.%06ld\n", childUsage.ru_utime.tv_sec, childUsage.ru_utime.tv_usec);
 		printf("Involuntary Context Switches %li\n", childUsage.ru_nivcsw);
         }
-        */
 	//print shell> to make it move apparent that this is a prompt
 	printf("mysh$ ");
 	return 0;
